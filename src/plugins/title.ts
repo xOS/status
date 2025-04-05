@@ -12,6 +12,6 @@ useTitle(
 		return path.replaceAll('/', '')
 	},
 	{
-		titleTemplate: `${import.meta.env.VITE_APP_TITLE} %s`,
+		titleTemplate: `服务状态`,
 	},
 )
