@@ -46,7 +46,7 @@ const $route = useRoute()
 				</li>
 				<a
 					class="i-mdi:github cursor-pointer text-2xl hover:text-gray-1"
-					href="https://github.com/mcoo/status"
+					href="https://github.com/xOS"
 				></a>
 			</ul>
 		</div>

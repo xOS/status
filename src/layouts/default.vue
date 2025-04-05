@@ -14,13 +14,13 @@
 		<div
 			class="text-[1.1rem]] mt-3 text-center text-gray-500 dark:text-gray-300"
 		>
-			<n-a href="https://status.mcenjoy.cn">STATUS</n-a>
+			<n-a href="https://www.nange.cn">楠格</n-a>
 		</div>
 	</div>
 </template>
 <script setup lang="ts">
 function OpenMail() {
-	window.open('mailto:i@mcenjoy.cn', '_blank')
+	window.open('http://x.com/Pephne', '_blank')
 }
 </script>
 

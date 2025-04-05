@@ -34,90 +34,6 @@
 				当前有服务器宕机，请注意
 			</n-alert>
 		</div>
-		<div class="col-span-12 flex flex-col gap-2 overflow-hidden md:col-span-8">
-			<div>
-				最新备份状态
-				<span class="text-[0.6rem]">——致那些年失去的博客数据 :(</span>
-			</div>
-			<div
-				class="border border-gray-200 rounded-lg bg-white px-6 shadow dark:border-gray-700 dark:bg-gray-800"
-			>
-				<n-spin v-show="backup_loading" class="min-h-40 w-full"></n-spin>
-				<div :show="!backup_loading">
-					<div class="grid-4 py-2 divide-y divide-dashed">
-						<n-thing
-							v-for="(v, k) in backup_data?.backups"
-							:key="k"
-							class="py-2"
-							:title="v.name"
-						>
-							<template #avatar>
-								<n-icon class="i-ic:sharp-settings-backup-restore h-5 w-5" />
-							</template>
-							<template #header-extra>
-								<div class="text-[0.6rem]">
-									{{ dayjs(v.end_time).locale('zh-cn').fromNow() }}
-								</div>
-							</template>
-							<template #description>
-								<n-space size="small">
-									<n-tag
-										:type="v.result !== 'Success' ? 'error' : 'success'"
-										size="small"
-									>
-										<template #icon>
-											<n-icon
-												:class="
-													v.result !== 'Success'
-														? 'i-material-symbols:error'
-														: 'i-clarity:success-standard-solid'
-												"
-											/>
-										</template>
-										{{ v.result !== 'Success' ? '备份失败' : '备份成功' }}
-									</n-tag>
-									<n-tag type="info" size="small">
-										{{
-											`用时: ${dayjs.duration(dayjs(v.end_time).diff(dayjs(v.begin_time))).asSeconds()}秒`
-										}}
-										<template #icon>
-											<n-icon class="i-material-symbols:alarm" />
-										</template>
-									</n-tag>
-								</n-space>
-							</template>
-						</n-thing>
-					</div>
-				</div>
-			</div>
-			<div
-				v-show="uptime_loading"
-				class="border border-gray-200 rounded-lg bg-white px-6 shadow dark:border-gray-700 dark:bg-gray-800"
-			>
-				<n-spin class="min-h-40 w-full"> </n-spin>
-			</div>
-			<n-tabs type="segment" animated class="overflow-hidden rounded-lg">
-				<n-tab-pane name="chap1" tab="Uptimerobot">
-					<div
-						v-for="(topItem, i) in uptime_data.monitors"
-						:key="i"
-						class="w-full"
-					>
-						<div>{{ i }}</div>
-						<div
-							class="mt-2 border border-gray-200 rounded-lg bg-white px-6 shadow dark:border-gray-700 dark:bg-gray-800"
-						>
-							<div class="w-full divide-y divide-dashed">
-								<ul v-for="(item, j) in topItem" :key="j" class="w-full">
-									<StatusItem :rtl="info_data?.rtl" :data="item"></StatusItem>
-								</ul>
-							</div>
-						</div>
-					</div>
-				</n-tab-pane>
-				<n-tab-pane name="chap2" tab="自建uptime-kuma"> </n-tab-pane>
-			</n-tabs>
-		</div>
 		<div class="col-span-12 flex flex-col gap-2 overflow-hidden md:col-span-4">
 			<AboutMe
 				:loading="info_loading"
@@ -146,41 +62,6 @@
 							</n-tag>
 							<n-tag type="info" size="small">
 								{{ `原因: ${item.reason.detail}` }}
-								<template #icon>
-									<n-icon class="i-material-symbols:chat-info" />
-								</template>
-							</n-tag>
-						</div>
-					</n-timeline-item>
-				</n-timeline>
-			</div>
-
-			<div>备份失败日志</div>
-			<div
-				class="border border-gray-200 rounded-lg bg-white p-6 shadow dark:border-gray-700 dark:bg-gray-800"
-			>
-				<n-spin v-show="backup_loading" class="min-h-40 w-full"></n-spin>
-				<n-timeline>
-					<n-timeline-item
-						v-for="(item, key) in backup_data?.errors?.reverse()"
-						:key="key"
-						type="error"
-						:title="item.name + '失败 :('"
-						:time="dayjs(item.end_time).format('YYYY-MM-DD HH:mm:ss')"
-					>
-						<div class="flex flex-wrap gap-1">
-							<n-tag type="error" size="small">
-								{{
-									formatDuration(
-										dayjs(item.end_time).unix() - dayjs(item.begin_time).unix(),
-									)
-								}}
-								<template #icon>
-									<n-icon class="i-material-symbols:alarm" />
-								</template>
-							</n-tag>
-							<n-tag type="info" size="small">
-								{{ `${item.operate} ${item.result}` }}
 								<template #icon>
 									<n-icon class="i-material-symbols:chat-info" />
 								</template>
