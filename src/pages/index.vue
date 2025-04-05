@@ -35,11 +35,6 @@
 			</n-alert>
 		</div>
 		<div class="col-span-12 flex flex-col gap-2 overflow-hidden md:col-span-8">
-
-			<div
-				class="border border-gray-200 rounded-lg bg-white px-6 shadow dark:border-gray-700 dark:bg-gray-800"
-			>
-			</div>
 			<div
 				v-show="uptime_loading"
 				class="border border-gray-200 rounded-lg bg-white px-6 shadow dark:border-gray-700 dark:bg-gray-800"
@@ -47,7 +42,7 @@
 				<n-spin class="min-h-40 w-full"> </n-spin>
 			</div>
 			<n-tabs type="segment" animated class="overflow-hidden rounded-lg">
-				<n-tab-pane name="chap1" tab="Uptimerobot">
+				<n-tab-pane>
 					<div v-for="(topItem, i) in uptime_data.monitors" :key="i" class="w-full">
 						<div>{{ i }}</div>
 						<div
