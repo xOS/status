@@ -4,7 +4,7 @@ useTitle(
 	() => {
 		const { path, meta } = router.currentRoute.value
 		if (meta.title) {
-			return `服务状态`
+			return `${meta.title}`
 		}
 		if (path === '/') {
 			return ''
