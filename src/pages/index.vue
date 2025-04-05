@@ -3,7 +3,7 @@
 		<div class="col-span-12">
 			<n-alert
 				v-if="uptime_error"
-				title="错误"
+				title="错误！"
 				class="rounded-lg shadow"
 				type="error"
 			>
@@ -11,7 +11,7 @@
 			</n-alert>
 			<n-alert
 				v-if="uptime_loading"
-				title="加载中"
+				title="加载中..."
 				class="rounded-lg shadow"
 				type="info"
 			>
@@ -19,11 +19,11 @@
 			</n-alert>
 			<n-alert
 				v-if="uptime_data.monitors && allok"
-				title="恭喜"
+				title="恭喜！"
 				class="rounded-lg shadow"
 				type="success"
 			>
-				当前服务器都运行正常
+				当前服务器全部运行正常。
 			</n-alert>
 			<n-alert
 				v-if="uptime_data && !allok"
@@ -31,7 +31,7 @@
 				class="rounded-lg shadow"
 				type="warning"
 			>
-				当前有服务器宕机，请注意
+				当前有服务器宕机，请注意！
 			</n-alert>
 		</div>
 		<div class="col-span-12 flex flex-col gap-2 overflow-hidden md:col-span-8">
