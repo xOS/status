@@ -47,15 +47,11 @@
 				<n-spin class="min-h-40 w-full"> </n-spin>
 			</div>
 			<n-tabs type="segment" animated class="overflow-hidden rounded-lg">
-					<div
-						v-for="(topItem, i) in uptime_data.monitors"
-						:key="i"
-						class="w-full"
-					>
+				<n-tab-pane name="chap1" tab="Uptimerobot">
+					<div v-for="(topItem, i) in uptime_data.monitors" :key="i" class="w-full">
 						<div>{{ i }}</div>
 						<div
-							class="mt-2 border border-gray-200 rounded-lg bg-white px-6 shadow dark:border-gray-700 dark:bg-gray-800"
-						>
+							class="mt-2 border border-gray-200 rounded-lg bg-white px-6 shadow dark:border-gray-700 dark:bg-gray-800">
 							<div class="w-full divide-y divide-dashed">
 								<ul v-for="(item, j) in topItem" :key="j" class="w-full">
 									<StatusItem :rtl="info_data?.rtl" :data="item"></StatusItem>
@@ -63,6 +59,7 @@
 							</div>
 						</div>
 					</div>
+				</n-tab-pane>
 			</n-tabs>
 		</div>
 		<div class="col-span-12 flex flex-col gap-2 overflow-hidden md:col-span-4">
