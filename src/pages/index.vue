@@ -68,7 +68,7 @@
 				<n-spin v-show="uptime_loading" class="min-h-40 w-full"></n-spin>
 				<n-timeline>
 					<n-timeline-item
-						v-for="(item, key) in uptime_data.logs"
+						v-for="(item, key) in [...uptime_data.logs].reverse()"
 						:key="key"
 						type="error"
 						:title="item.name"
