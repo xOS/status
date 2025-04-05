@@ -74,3 +74,7 @@ a:active {
   text-decoration: underline;
 }
 
+.mt-3 {
+    margin-top: .75rem;
+	padding-bottom: .75rem!important;
+}
