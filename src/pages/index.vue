@@ -68,7 +68,7 @@
 				<n-spin v-show="uptime_loading" class="min-h-40 w-full"></n-spin>
 				<n-timeline>
 					<n-timeline-item
-						v-for="(item, key) in [...uptime_data.logs].reverse()"
+						v-for="(item, key) in sortedLogs"
 						:key="key"
 						type="error"
 						:title="item.name"
@@ -115,5 +115,13 @@ const allok = computed(() => {
 		}
 	}
 	return ok
+})
+
+const sortedLogs = computed(() => {
+  if (!uptime_data.value?.logs) return []
+  
+  return [...uptime_data.value.logs].sort((a, b) => {
+    return new Date(b.datetime).getTime() - new Date(a.datetime).getTime()
+  })
 })
 </script>
