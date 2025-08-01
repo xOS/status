@@ -76,8 +76,8 @@
 				</n-button>
 			</div>
 			<div
-				class="border border-gray-200 rounded-lg bg-white p-6 shadow dark:border-gray-700 dark:bg-gray-800"
-				:class="{ 'max-h-96 overflow-hidden': !showAllLogs }"
+				class="border border-gray-200 rounded-lg bg-white p-6 shadow dark:border-gray-700 dark:bg-gray-800 transition-all duration-300"
+				:style="logContainerStyle"
 			>
 				<n-spin v-show="uptime_loading" class="min-h-40 w-full"></n-spin>
 				<n-timeline v-if="!uptime_loading">
@@ -152,5 +152,37 @@ const displayedLogs = computed(() => {
     return sortedLogs.value
   }
   return sortedLogs.value.slice(0, 5)
+})
+
+// 动态计算日志容器的样式
+const logContainerStyle = computed(() => {
+  if (uptime_loading.value) {
+    return {
+      minHeight: '160px'
+    }
+  }
+  
+  if (sortedLogs.value.length === 0) {
+    return {
+      minHeight: '120px'
+    }
+  }
+  
+  if (!showAllLogs.value && sortedLogs.value.length > 5) {
+    // 折叠状态：基础高度 + (显示条数 * 每条大约高度)
+    const baseHeight = 40 // 基础padding等
+    const itemHeight = 80 // 每个timeline item大约高度
+    const collapsedHeight = baseHeight + (displayedLogs.value.length * itemHeight)
+    return {
+      maxHeight: `${collapsedHeight}px`,
+      overflow: 'hidden'
+    }
+  }
+  
+  // 展开状态：自适应高度
+  return {
+    maxHeight: 'none',
+    overflow: 'visible'
+  }
 })
 </script>
