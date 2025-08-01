@@ -20,7 +20,7 @@
 </template>
 <script setup lang="ts">
 function OpenMail() {
-	window.open('http://x.com/Pephne', '_blank')
+	window.open('http://x.com/OneTip', '_blank')
 }
 </script>
 

@@ -61,14 +61,28 @@
 				:data="info_data"
 				class="overflow-hidden md:block"
 			></AboutMe>
-			<div>宕机日志</div>
+			<div class="flex items-center justify-between">
+				<span>宕机日志</span>
+				<n-button
+					v-if="sortedLogs.length > 5"
+					text
+					size="small"
+					@click="showAllLogs = !showAllLogs"
+				>
+					{{ showAllLogs ? '收起' : '展开' }}
+					<template #icon>
+						<n-icon :class="showAllLogs ? 'i-material-symbols:keyboard-arrow-up' : 'i-material-symbols:keyboard-arrow-down'" />
+					</template>
+				</n-button>
+			</div>
 			<div
 				class="border border-gray-200 rounded-lg bg-white p-6 shadow dark:border-gray-700 dark:bg-gray-800"
+				:class="{ 'max-h-96 overflow-hidden': !showAllLogs }"
 			>
 				<n-spin v-show="uptime_loading" class="min-h-40 w-full"></n-spin>
-				<n-timeline>
+				<n-timeline v-if="!uptime_loading">
 					<n-timeline-item
-						v-for="(item, key) in sortedLogs"
+						v-for="(item, key) in displayedLogs"
 						:key="key"
 						type="error"
 						:title="item.name"
@@ -90,6 +104,9 @@
 						</div>
 					</n-timeline-item>
 				</n-timeline>
+				<div v-if="!uptime_loading && sortedLogs.length === 0" class="text-center text-gray-500 py-8">
+					暂无宕机记录
+				</div>
 			</div>
 
 		</div>
@@ -103,6 +120,10 @@ const {
 } = uptimeRequest('', 90)
 const { loading: backup_loading, data: backup_data } = backupRequest()
 const { loading: info_loading, data: info_data } = infoRequest()
+
+// 控制宕机日志展开/折叠状态
+const showAllLogs = ref(false)
+
 const allok = computed(() => {
 	let ok = true
 	console.log(uptime_data.value)
@@ -123,5 +144,13 @@ const sortedLogs = computed(() => {
   return [...uptime_data.value.logs].sort((a, b) => {
     return new Date(b.datetime).getTime() - new Date(a.datetime).getTime()
   })
+})
+
+// 根据展开状态显示的日志条数
+const displayedLogs = computed(() => {
+  if (showAllLogs.value || sortedLogs.value.length <= 5) {
+    return sortedLogs.value
+  }
+  return sortedLogs.value.slice(0, 5)
 })
 </script>
